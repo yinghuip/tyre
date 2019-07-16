@@ -1,0 +1,74 @@
+<div class="col-sm-12">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Number of Section" 
+    [(ngModel)]="Section"
+    (ngModelChange)="change($event)">
+</mat-form-field>
+</div>
+
+
+  
+<mat-card>
+  <div class="row">
+      <div class="col-sm-6">
+  <svg style="width: 250px; height: 250px;">
+    <ng-container>
+      <path [attr.id]="'section_'+item.Id+''" *ngFor="let item of circle" 
+      [attr.fill]="item.color ? item.color : 'white'" 
+      stroke="black"
+      fill-rule="evenodd"
+      [attr.d]="item.d"
+      (click)="enlarge(item.Id)">
+      </path>
+      <svg:g *ngFor="let item of circle">
+    <path (click)="enlarge(item.Id)" 
+    [attr.id]="'curve_'+item.Id+''" 
+    [attr.d]="item.textPath" 
+    fill="transparent"/>
+    <text>
+      <textPath (click)="enlarge(item.Id)" [attr.xlink:href]="'#curve_'+item.Id+''" startOffset="50%" text-anchor="middle" dominant-baseline="text-before-edge" >
+        {{item.Label}}
+      </textPath>
+    </text>
+      </svg:g>
+    </ng-container>
+  </svg>
+</div>
+<div class="col-sm-6">
+  <ng-container *ngIf="tireSelected">
+    <mat-form-field>
+  <mat-label>Color</mat-label>
+  <mat-select [(ngModel)]="selectedColor" (ngModelChange)="selectColor  ($event.value)">
+        <mat-select-trigger>
+          <span>
+            <i class="material-icons" [ngStyle]="{'color': selectedColor.value}">
+            stop
+            </i>
+            {{selectedColor.Name}}
+        </span>
+    </mat-select-trigger>
+    <mat-option *ngFor="let color of colors" [value]="color">
+      <span>
+      <i class="material-icons" [ngStyle]="{'color': color.value}">
+      stop
+      </i>
+          {{ color.Name }}
+      </span>
+  
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+  </ng-container>
+</div>
+  </div>
+
+
+</mat-card>
+
+<!--
+Copyright Google LLC All Rights Reserved.
+
+Use of this source code is governed by an MIT-style license that can be
+found in the LICENSE file at https://angular.io/license
+-->
